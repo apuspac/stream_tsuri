@@ -33,7 +33,6 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="LetterDisplayTimer" type="Timer" parent="."]
-one_shot = true
+[node name="EmoteTimer" type="Timer" parent="."]
 
-[connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
+[connection signal="timeout" from="EmoteTimer" to="." method="_on_emote_timer_timeout"]

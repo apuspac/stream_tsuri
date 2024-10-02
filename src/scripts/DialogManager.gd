@@ -14,10 +14,9 @@ var text_box_position: Vector2
 var is_dialog_active = false
 var can_advance_line = false
 
-func start_chat_dialog(position: Vector2, lines: String):
-	chat_lines = lines
+func start_chat_dialog(position: Vector2, _lines: String):
+	chat_lines = _lines
 	text_box_position = position
-	
 	_show_chat_box()
 	
 func _show_chat_box():
@@ -69,13 +68,14 @@ func _unhandled_input(event):
 		
 		_show_text_box()
 
+const test_text = "aaahhh aaahhh"
 
-#const lines: Array[String] = [
-	#"A.",
-	#"It looks like if the first one is short, it's going to be ERROR..",
-	#"It looks like it has to be a certain length to go.",
-	#"Ccccccccccccccccccccccccc?Ccccccccccccccccccccccccc?Ccccccccccccccccccccccccc?Ccccccccccccccccccccccccc?Ccccccccccccccccccccccccc?",
-#]
+const lines: Array[String] = [
+	"A.",
+	"It looks like if the first one is short, it's going to be ERROR..",
+	"It looks like it has to be a certain length to go.",
+	"Ccccccccccccccccccccccccc?cccccccccccccccccccccccc?Ccccccccccccccccccccccccc?",
+]
 #
 #func _unhandled_input(event):
 	#if event.is_action_pressed("ui_text_backspace"):

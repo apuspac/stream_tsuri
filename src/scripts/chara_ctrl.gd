@@ -1,5 +1,7 @@
 extends Node2D
 @export var chatter: PackedScene
+
+
 var http_request
 
 signal notice_charaname(name: String)
@@ -13,6 +15,10 @@ func _ready():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._http_request_completed)
+	
+	# test
+	instance_chara("tester")
+
 
 
 func _on_websockets_main_receive_chat(chat_msg):
@@ -70,24 +76,22 @@ func instance_chara(user_name: String):
 			# instanceしたら追加。
 			user_list[user_name] = avatar
 
-func pop_msg(chatter_name: String, msg: String):
+func pop_msg(_chatter: String, msg: String):
 	# 該当nameを持ったcharaを探して label_chatを更新
-	if chatter_name in user_list:
-		var chara = user_list[chatter_name]
+	if _chatter in user_list:
+		var chara = user_list[_chatter]
 		
-		
+		# old 
+		# 使ってないけど、test用に。
 		var label_chat = chara.get_node("Control/Chat")
 		label_chat.text = msg
 		
+		# var speech_bubble = chara.get_node("Control/TextBox")
+		# speech_bubble.display_text(msg)
 		
-		var speech_bubble = chara.get_node("Control/TextBox")
-		#speech_bubble.visible = true
+		var speech_bubble = chara.get_node("Control")
 		speech_bubble.display_text(msg)
-		
-		
-		# ある程度時間が経ったら、消去するためのtimer開始。
-		#var chat_timer = chara.get_node("ChatTimer")
-		#chat_timer.start(10.0)
+
 
 
 var popping_emote_name = ""
@@ -104,20 +108,23 @@ func pop_chara_emote(image: Image):
 	if popping_emote_name in user_list:
 		var chara = user_list[popping_emote_name]
 		
+		var emote_bubble = chara.get_node("Control")
+		emote_bubble.display_emote(image)
+		
 		#var emote_texture = chara.get_node("Control/Emote")
 		#var texture = ImageTexture.create_from_image(image)
 		#emote_texture.texture = texture
 		#emote_texture.visible = true
 		
-		var emote_box = chara.get_node("Control/EmoteBox")
-		emote_box.display_emote(image)
-		emote_box.visible = true
+		# var emote_box = chara.get_node("Control/EmoteBox")
+		# emote_box.display_emote(image)
+		#emote_box.visible = true
 		
 		## ある程度時間が経ったら、消去するためのtimer開始。
-		var emote_timer = chara.get_node("EmoteTimer")
-		emote_timer.start(10.0)
+		#var emote_timer = chara.get_node("EmoteTimer")
+		#emote_timer.start(10.0)
 
-func _http_request_completed(result, response_code, headers, body):
+func _http_request_completed(result, _response_code, _headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("Image couldn't be downloaded. Try a different image.")
 	
@@ -131,9 +138,13 @@ func _http_request_completed(result, response_code, headers, body):
 	pop_chara_emote(image)
 
 
-
-
-
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_text_backspace"):
+		pop_msg("tester", "aaahhh aaahhh")
+	if event.is_action_pressed("ui_page_down"):
+		pop_emote("tester", "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e8d5598a20eb4a3c8d7804b8531cc41c/static/light/4.0")
+	if event.is_action_pressed("ui_accept"):
+		pop_msg("tester", "a.")
 	#var texture = ImageTexture.create_from_image(image)
 #
 #

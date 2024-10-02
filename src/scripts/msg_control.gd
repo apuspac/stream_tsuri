@@ -39,7 +39,7 @@ func _on_websockets_main_receive_emote(chat_msg: String):
 
 # Called when the HTTP request is completed.
 # get emote maybe 
-func _http_request_completed(result, response_code, headers, body):
+func _http_request_completed(result, _response_code, _headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("Image couldn't be downloaded. Try a different image.")
 

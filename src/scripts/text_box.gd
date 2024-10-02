@@ -21,10 +21,11 @@ func display_text(text_to_display: String):
 	
 	# 毎回参照を取らないとだめっぽい。
 	label = $MarginContainer/Label
+	timer = $LetterDisplayTimer
 	text = text_to_display
 	label.text = text_to_display
 	
-	print(label.text)
+	print(text.length())
 	
 	# 文字数が超少なくて、resizeが必要ないと、awaitで止まってしまうのでその対策。
 	if text.length() > MIN_WIDTH:
@@ -81,6 +82,11 @@ func _display_letter():
 		_:
 			timer.start(letter_time)
 
+var bubble_up_speed = 10
+func _process(delta):
+	position.y -= bubble_up_speed * delta
+	
+
 
 func _on_letter_display_timer_timeout():
 	#_display_letter()
@@ -90,3 +96,5 @@ func _on_letter_display_timer_timeout():
 func _on_chat_timer_timeout():
 	visible = false
 	label = ""
+	custom_minimum_size = Vector2(0, 0)
+	queue_free()

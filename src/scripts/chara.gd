@@ -1,10 +1,11 @@
 extends CharacterBody2D
+
 @onready var move_timer: Timer = $MoveTimer
 @onready var anime: AnimatedSprite2D = $AnimatedSprite2D
 @onready var chat_label: Label = $Control/Chat
 @onready var emote_texture: TextureRect = $Control/Emote
-@onready var speech_bubble = $Control/TextBox
-@onready var emote_bubble = $Control/EmoteBox
+# @onready var speech_bubble = $Control/TextBox
+# @onready var emote_bubble = $Control/EmoteBox
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -54,15 +55,3 @@ func update_animation() -> void:
 		anime.play("idle")
 	else:
 		anime.play("move")
-	
-
-func _on_chat_timer_timeout():
-	# タイマーの間だけ、chat_labelを表示。
-	chat_label.text = ""
-	speech_bubble.visible = false
-	speech_bubble.label = ""
-	# emote_texture.visible = false
-
-
-func _on_emote_timer_timeout():
-	emote_bubble.visible = false
