@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://clyivcqwvmvyp"]
+
+[ext_resource type="Script" path="res://src/scripts/websockets_test.gd" id="1_fg0er"]
+[ext_resource type="PackedScene" uid="uid://b8bgxcgus0bdd" path="res://src/scene/chara.tscn" id="2_t1ca4"]
+[ext_resource type="Script" path="res://src/scripts/chat_test.gd" id="2_uckrt"]
+[ext_resource type="Script" path="res://src/scripts/chara_ctrl.gd" id="4_gcvtl"]
+
+[node name="websockets_test" type="Node2D"]
+script = ExtResource("1_fg0er")
+
+[node name="chat_test" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_uckrt")
+
+[node name="Label" type="Label" parent="chat_test"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "aaahhh"
+
+[node name="chara_ctrl" type="Node2D" parent="."]
+script = ExtResource("4_gcvtl")
+chatter = ExtResource("2_t1ca4")
+
+[connection signal="receive_chat" from="." to="chat_test" method="_on_websockets_test_receive_chat"]
+[connection signal="receive_chat" from="." to="chara_ctrl" method="_on_websockets_test_receive_chat"]
+[connection signal="receive_emote" from="." to="chat_test" method="_on_websockets_test_receive_emote"]

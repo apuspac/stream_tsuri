@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8bgxcgus0bdd"]
+
+[ext_resource type="Script" path="res://src/scripts/chara.gd" id="1_nw600"]
+[ext_resource type="Texture2D" uid="uid://drh7pab0efmq" path="res://assets/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="2_flbfl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqjfu"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yb4h"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8d41"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk4cu"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm6ap"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bn8dd"]
+atlas = ExtResource("2_flbfl")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ucgc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqjfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yb4h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8d41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk4cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm6ap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bn8dd")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4hm76"]
+radius = 56.0
+height = 112.0
+
+[sub_resource type="ImageTexture" id="ImageTexture_t15u0"]
+
+[node name="chara" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_nw600")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_4ucgc")
+animation = &"idle"
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(69, 84)
+shape = SubResource("CapsuleShape2D_4hm76")
+
+[node name="Name" type="Label" parent="."]
+offset_left = 48.0
+offset_top = -3.0
+offset_right = 88.0
+offset_bottom = 20.0
+horizontal_alignment = 1
+
+[node name="Chat" type="Label" parent="."]
+offset_left = 46.0
+offset_top = -34.0
+offset_right = 86.0
+offset_bottom = -11.0
+
+[node name="MoveTimer" type="Timer" parent="."]
+process_callback = 0
+
+[node name="ChatTimer" type="Timer" parent="."]
+
+[node name="Emote" type="TextureRect" parent="."]
+offset_left = 48.0
+offset_top = -104.0
+offset_right = 78.0
+offset_bottom = -74.0
+texture = SubResource("ImageTexture_t15u0")
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ChatTimer" to="." method="_on_chat_timer_timeout"]
