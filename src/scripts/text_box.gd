@@ -94,7 +94,16 @@ func _on_letter_display_timer_timeout():
 
 
 func _on_chat_timer_timeout():
-	visible = false
 	label = ""
 	custom_minimum_size = Vector2(0, 0)
+	fade_out()
+	
+
+var fade_duration = 1.0
+func fade_out():
+	var tween = get_tree().create_tween()
+	tween.tween_property($MarginContainer, "modulate:a", 0, fade_duration)
+	tween.play()
+	await tween.finished
+	tween.kill()
 	queue_free()

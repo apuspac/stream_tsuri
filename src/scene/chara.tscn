@@ -77,23 +77,6 @@ sprite_frames = SubResource("SpriteFrames_4ucgc")
 animation = &"idle"
 centered = false
 
-[node name="TextBox" parent="." instance=ExtResource("3_n0maq")]
-visible = false
-offset_left = 46.0
-offset_top = -50.0
-offset_right = 86.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 4
-
-[node name="EmoteBox" parent="." instance=ExtResource("3_iyde0")]
-visible = false
-offset_left = 46.0
-offset_top = -144.0
-offset_right = 86.0
-offset_bottom = -104.0
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(69, 84)
 shape = SubResource("CapsuleShape2D_4hm76")

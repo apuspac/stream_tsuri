@@ -111,39 +111,52 @@ func pop_chara_emote(image: Image):
 		var emote_bubble = chara.get_node("Control")
 		emote_bubble.display_emote(image)
 		
-		#var emote_texture = chara.get_node("Control/Emote")
-		#var texture = ImageTexture.create_from_image(image)
-		#emote_texture.texture = texture
-		#emote_texture.visible = true
+func pop_chara_emote_gif(image: SpriteFrames):
+	if popping_emote_name in user_list:
+		var chara = user_list[popping_emote_name]
 		
-		# var emote_box = chara.get_node("Control/EmoteBox")
-		# emote_box.display_emote(image)
-		#emote_box.visible = true
 		
-		## ある程度時間が経ったら、消去するためのtimer開始。
-		#var emote_timer = chara.get_node("EmoteTimer")
-		#emote_timer.start(10.0)
+		var emote_bubble = chara.get_node("Control")
+		emote_bubble.display_emote_GIF(image)
 
 func _http_request_completed(result, _response_code, _headers, body):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error("Image couldn't be downloaded. Try a different image.")
+	var mime_type = ""
 	
-	var image = Image.new()
-	var error = image.load_png_from_buffer(body)
 	
+	for header in _headers:
+		if header.begins_with("Content-Type:"):
+			mime_type = header.replace("Content-Type: ", "").strip_edges()
+			break
+	
+	print(mime_type)
+	
+	
+	if mime_type == "image/png":
+		if result != HTTPRequest.RESULT_SUCCESS:
+			push_error("Image couldn't be downloaded. Try a different image.")
+		
+		var image = Image.new()
+		var error = image.load_png_from_buffer(body)
+		if error != OK:
+			push_error("Couldn't load the image.")
 
-	if error != OK:
-		push_error("Couldn't load the image.")
+		pop_chara_emote(image)
+	
+	elif mime_type == "image/gif":
+		var sprite_frames: SpriteFrames = GifManager.sprite_frames_from_buffer(body)
+		pop_chara_emote_gif(sprite_frames)
 
-	pop_chara_emote(image)
 
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_text_backspace"):
 		pop_msg("tester", "aaahhh aaahhh")
 	if event.is_action_pressed("ui_page_down"):
-		pop_emote("tester", "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e8d5598a20eb4a3c8d7804b8531cc41c/static/light/4.0")
+		#pop_emote("tester", "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e8d5598a20eb4a3c8d7804b8531cc41c/static/light/4.0")
+		#pop_emote("tester", "https://cdn.betterttv.net/emote/5ba6d5ba6ee0c23989d52b10/3x")
+		pop_emote("tester", "http://localhost:8080/emote/")		
 	if event.is_action_pressed("ui_accept"):
+		pop_emote("tester", "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e8d5598a20eb4a3c8d7804b8531cc41c/static/light/4.0")		
 		pop_msg("tester", "a.")
 	#var texture = ImageTexture.create_from_image(image)
 #
