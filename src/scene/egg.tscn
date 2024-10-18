@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkjxhpydexrj7"]
+
+[ext_resource type="Script" path="res://src/scripts/egg.gd" id="1_jvabu"]
+[ext_resource type="Texture2D" uid="uid://cr6bvshc72xel" path="res://assets/Sprout Lands - Sprites - Basic pack/Objects/Egg_item.png" id="2_mlgqe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_623bb"]
+radius = 30.0666
+
+[node name="egg" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 49
+script = ExtResource("1_jvabu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_mlgqe")
+region_rect = Rect2(0, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_623bb")
+
+[node name="FloatingTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FloatingTimer" to="." method="_on_floating_timer_timeout"]

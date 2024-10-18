@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://clyivcqwvmvyp"]
+[gd_scene load_steps=14 format=3 uid="uid://clyivcqwvmvyp"]
 
 [ext_resource type="Script" path="res://src/scripts/websockets_main.gd" id="1_cucs3"]
 [ext_resource type="Script" path="res://src/scripts/msg_control.gd" id="2_a7410"]
 [ext_resource type="Script" path="res://src/scripts/chara_ctrl.gd" id="3_mktm1"]
 [ext_resource type="PackedScene" uid="uid://b8bgxcgus0bdd" path="res://src/scene/chara.tscn" id="4_32ts8"]
+[ext_resource type="Texture2D" uid="uid://b3fj8kp0vrlhv" path="res://assets/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="4_fviry"]
 [ext_resource type="Texture2D" uid="uid://k5xphx603vw5" path="res://assets/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="5_4ar2p"]
+[ext_resource type="Script" path="res://src/scripts/wave_move.gd" id="7_ik1oa"]
+[ext_resource type="PackedScene" uid="uid://lnu1ilpw0e8n" path="res://src/scene/water_body.tscn" id="7_vp1x0"]
+[ext_resource type="Script" path="res://src/scripts/interaction.gd" id="8_gfjsj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yb4rp"]
 texture = ExtResource("5_4ar2p")
@@ -105,27 +109,34 @@ texture = ExtResource("5_4ar2p")
 0:3/0 = 0
 0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:3/0/physics_layer_0/angular_velocity = 0.0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:3/0 = 0
 1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:3/0/physics_layer_0/angular_velocity = 0.0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:3/0 = 0
 2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:3/0/physics_layer_0/angular_velocity = 0.0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:3/0 = 0
 3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:3/0/physics_layer_0/angular_velocity = 0.0
 4:3/0 = 0
 4:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:3/0/physics_layer_0/angular_velocity = 0.0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:3/0 = 0
 5:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:3/0/physics_layer_0/angular_velocity = 0.0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0 = 0
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:3/0 = 0
 7:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:3/0/physics_layer_0/angular_velocity = 0.0
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:3/0 = 0
 8:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:3/0/physics_layer_0/angular_velocity = 0.0
@@ -210,17 +221,80 @@ texture = ExtResource("5_4ar2p")
 10:6/0 = 0
 10:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:6/0/physics_layer_0/angular_velocity = 0.0
+3:4/0 = 0
+3:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:4/0/physics_layer_0/angular_velocity = 0.0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uec0k"]
+texture = ExtResource("4_fviry")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.125, -8, 4.625, -8, 4.625, 8, -4, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.875, -8, 3.625, -8, 3.5, 8, -3.625, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.25, -8, 3, -8, 3, 4.75, -3.375, 4.5)
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
+0:3/0 = 0
+0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:3/0/physics_layer_0/angular_velocity = 0.0
+1:3/0 = 0
+1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:3/0/physics_layer_0/angular_velocity = 0.0
+2:3/0 = 0
+2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:3/0/physics_layer_0/angular_velocity = 0.0
+3:3/0 = 0
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_luo8q"]
 physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_yb4rp")
+sources/1 = SubResource("TileSetAtlasSource_uec0k")
+
+[sub_resource type="Curve" id="Curve_pbtnn"]
+_data = [Vector2(0, 0.945055), 0.0, 0.0, 0, 0, Vector2(0.26749, 0.736264), -1.98121, -1.98121, 0, 0, Vector2(0.744856, 0.318681), 0.0, 0.0, 0, 0, Vector2(1, 0.373626), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="websockets_main" type="Node2D"]
 script = ExtResource("1_cucs3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1194.0
-offset_bottom = 703.0
+offset_right = 1279.0
+offset_bottom = 1227.0
 color = Color(1, 0, 1, 1)
 
 [node name="msg_ctrl" type="Control" parent="."]
@@ -241,14 +315,32 @@ text = "aaahhh"
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_luo8q")
 format = 2
-layer_0/tile_data = PackedInt32Array(458752, 65536, 2, 458753, 65536, 2, 458754, 65536, 2, 458755, 65536, 2, 458756, 65536, 2, 458757, 65536, 2, 458758, 65536, 2, 458759, 65536, 2, 458760, 65536, 2, 458761, 65536, 2, 458762, 65536, 2, 458763, 65536, 2, 458764, 65536, 2, 458765, 65536, 2, 458766, 65536, 2, 458767, 65536, 2, 458768, 65536, 2, 458769, 65536, 2, 196625, 65536, 2, 262161, 65536, 2, 327697, 65536, 2, 393233, 65536, 2, 196608, 65536, 2, 262144, 65536, 2, 327680, 65536, 2, 393216, 65536, 2)
+layer_0/tile_data = PackedInt32Array(851968, 1, 0, 917504, 0, 3, 917505, 65536, 3, 917506, 65536, 3, 917507, 65536, 3, 917508, 65536, 3, 917509, 65536, 3, 917510, 65536, 3, 917511, 65536, 3, 917512, 65536, 3, 917513, 65536, 3, 917514, 65536, 3, 917515, 65536, 3, 917516, 65536, 3, 917517, 65536, 3, 917518, 65536, 3, 917519, 65536, 3, 917520, 65536, 3, 917521, 65536, 3, 917522, 65536, 3, 851987, 1, 0, 917523, 131072, 3, 131071, 196608, 4, 196607, 196608, 4, 262143, 196608, 4, 327679, 196608, 4, 393215, 196608, 4, 458751, 196608, 4, 524287, 196608, 4, 589823, 196608, 4, 655359, 196608, 4, 720895, 196608, 4, 786431, 196608, 4, 851967, 196608, 4, 917503, 196608, 4, 983039, 196608, 4, 65535, 196608, 4, 1048575, 196608, 4, 1114111, 196608, 4, 1179647, 196608, 4, 1245183, 196608, 4, 20, 196608, 4, 65556, 196608, 4, 131092, 196608, 4, 196628, 196608, 4, 262164, 196608, 4, 393236, 196608, 4, 458772, 196608, 4, 327700, 196608, 4, 524308, 196608, 4, 589844, 196608, 4, 655380, 196608, 4, 720916, 196608, 4, 786452, 196608, 4, 917524, 196608, 4, 851988, 196608, 4, 983060, 196608, 4, 1048596, 196608, 4, 1114132, 196608, 4, 1179668, 196608, 4)
 
 [node name="chara_ctrl" type="Node2D" parent="."]
 script = ExtResource("3_mktm1")
 chatter = ExtResource("4_32ts8")
+
+[node name="wave_move" type="Node2D" parent="chara_ctrl"]
+position = Vector2(-39, 945.055)
+script = ExtResource("7_ik1oa")
+process_y = true
+factor = 100
+curve = SubResource("Curve_pbtnn")
+
+[node name="water_body" parent="chara_ctrl/wave_move" instance=ExtResource("7_vp1x0")]
+position = Vector2(-47, 0.94519)
+distance_between_springs = 20.0
+
+[node name="interaction" type="Node2D" parent="chara_ctrl"]
+script = ExtResource("8_gfjsj")
+
+[node name="WaveTimer" type="Timer" parent="chara_ctrl"]
+one_shot = true
 
 [connection signal="receive_chat" from="." to="msg_ctrl" method="_on_websockets_main_receive_chat"]
 [connection signal="receive_chat" from="." to="chara_ctrl" method="_on_websockets_main_receive_chat"]
 [connection signal="receive_emote" from="." to="msg_ctrl" method="_on_websockets_main_receive_emote"]
 [connection signal="receive_emote" from="." to="chara_ctrl" method="_on_websockets_main_receive_emote"]
 [connection signal="receive_hydrate" from="." to="chara_ctrl" method="_on_websockets_main_receive_hydrate"]
+[connection signal="timeout" from="chara_ctrl/WaveTimer" to="chara_ctrl" method="_on_wave_timer_timeout"]

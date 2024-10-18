@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8bgxcgus0bdd"]
+[gd_scene load_steps=17 format=3 uid="uid://b8bgxcgus0bdd"]
 
 [ext_resource type="Script" path="res://src/scripts/chara.gd" id="1_nw600"]
 [ext_resource type="Texture2D" uid="uid://drh7pab0efmq" path="res://assets/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="2_flbfl"]
@@ -65,10 +65,19 @@ animations = [{
 radius = 56.0
 height = 112.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cwf8r"]
+radius = 45.0
+height = 112.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ftkcl"]
+font_size = 20
+outline_size = 2
+outline_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+
 [sub_resource type="ImageTexture" id="ImageTexture_t15u0"]
 
-[node name="chara" type="CharacterBody2D"]
-collision_mask = 2
+[node name="Chara" type="CharacterBody2D"]
+collision_mask = 18
 script = ExtResource("1_nw600")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -81,8 +90,17 @@ centered = false
 position = Vector2(69, 84)
 shape = SubResource("CapsuleShape2D_4hm76")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(69, 85)
+shape = SubResource("CapsuleShape2D_cwf8r")
+
 [node name="MoveTimer" type="Timer" parent="."]
 process_callback = 0
+
+[node name="FloatingTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -114,6 +132,7 @@ offset_bottom = -60.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_ftkcl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -145,4 +164,17 @@ grow_vertical = 2
 pivot_offset = Vector2(15, 15)
 texture = SubResource("ImageTexture_t15u0")
 
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(69, 85)
+target_position = Vector2(60, 0)
+collision_mask = 2
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(69, 85)
+target_position = Vector2(-60, 0)
+collision_mask = 2
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FloatingTimer" to="." method="_on_floating_timer_timeout"]

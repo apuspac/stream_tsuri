@@ -27,11 +27,11 @@ func _show_chat_box():
 	text_box.display_text(chat_lines)
 	can_advance_line = false
 
-func start_dialog(position: Vector2, lines: Array[String]):
+func start_dialog(position: Vector2, _lines: Array[String]):
 	if is_dialog_active:
 		return
 	
-	dialog_lines = lines
+	dialog_lines = _lines
 	text_box_position = position
 	_show_text_box()
 	

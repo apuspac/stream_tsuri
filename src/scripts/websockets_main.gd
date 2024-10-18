@@ -49,7 +49,6 @@ func _process(_delta):
 				elif  typeof(msg_data) == TYPE_DICTIONARY and msg_data.has("msg"):
 					receive_chat.emit(receive_msg)
 				elif  typeof(msg_data) == TYPE_DICTIONARY and msg_data.has("hydrate"):
-					print("check?")
 					receive_hydrate.emit(receive_msg)
 			
 			# emoteのurlが含まれてるか。
@@ -67,5 +66,6 @@ func _process(_delta):
 		var code = socket.get_close_code()
 		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
 		set_process(false) # Stop processing.
+
 
 
