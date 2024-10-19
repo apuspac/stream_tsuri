@@ -1,19 +1,15 @@
 extends Node2D
 
 var egg = preload("res://src/scene/egg.tscn")
-var water_float = preload("res://src/scene/water_float.tscn")
+# var water_float = preload("res://src/scene/water_float.tscn")
 
-var wavearray = []
+@onready var float_area_move = $float_area_move
 
 func init_big_wave():
-	var wf = water_float.instantiate()
-	wavearray.append(wf)
-	add_child(wf)
+	float_area_move.up_wave()
 
 func free_big_wave():
-	var wf = wavearray.back()
-	if wf != null:
-		wf.queue_free()
+	float_area_move.down_wave()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_a"):

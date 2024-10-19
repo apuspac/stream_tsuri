@@ -26,7 +26,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _physics_process(delta):
 		
 	if is_floating or (not floating_timer.is_stopped()):
-		velocity.y = -40.0
+		velocity.y = -60.0
 	elif not is_on_floor():
 		velocity.y += gravity * delta
 	
@@ -87,7 +87,7 @@ func _on_area_2d_area_entered(area):
 
 
 func _on_area_2d_area_exited(_area):
-	name_label.position.y = -10.0
+	name_label.position.y = -5.0
 
 func _on_floating_timer_timeout():
 	is_floating = false

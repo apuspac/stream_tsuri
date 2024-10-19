@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://clyivcqwvmvyp"]
+[gd_scene load_steps=17 format=3 uid="uid://clyivcqwvmvyp"]
 
 [ext_resource type="Script" path="res://src/scripts/websockets_main.gd" id="1_cucs3"]
 [ext_resource type="Script" path="res://src/scripts/msg_control.gd" id="2_a7410"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://src/scripts/wave_move.gd" id="7_ik1oa"]
 [ext_resource type="PackedScene" uid="uid://lnu1ilpw0e8n" path="res://src/scene/water_body.tscn" id="7_vp1x0"]
 [ext_resource type="Script" path="res://src/scripts/interaction.gd" id="8_gfjsj"]
+[ext_resource type="Script" path="res://src/scripts/float_area_move.gd" id="10_0gjvr"]
+[ext_resource type="PackedScene" uid="uid://cs1xcdih2ooqj" path="res://src/scene/water_float.tscn" id="10_l6jej"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yb4rp"]
 texture = ExtResource("5_4ar2p")
@@ -289,6 +291,10 @@ sources/1 = SubResource("TileSetAtlasSource_uec0k")
 _data = [Vector2(0, 0.945055), 0.0, 0.0, 0, 0, Vector2(0.26749, 0.736264), -1.98121, -1.98121, 0, 0, Vector2(0.744856, 0.318681), 0.0, 0.0, 0, 0, Vector2(1, 0.373626), 0.0, 0.0, 0, 0]
 point_count = 4
 
+[sub_resource type="Curve" id="Curve_he85s"]
+_data = [Vector2(0, 0.923077), 0.0, 0.0, 0, 0, Vector2(0.255144, 0.593406), -2.04202, -2.04202, 0, 0, Vector2(0.720165, 0.098901), -0.632446, -0.632446, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
 [node name="websockets_main" type="Node2D"]
 script = ExtResource("1_cucs3")
 
@@ -334,6 +340,15 @@ distance_between_springs = 20.0
 
 [node name="interaction" type="Node2D" parent="chara_ctrl"]
 script = ExtResource("8_gfjsj")
+
+[node name="float_area_move" type="Node2D" parent="chara_ctrl/interaction"]
+position = Vector2(-60, 923.077)
+script = ExtResource("10_0gjvr")
+process_y = true
+factor = 100
+curve = SubResource("Curve_he85s")
+
+[node name="water_float" parent="chara_ctrl/interaction/float_area_move" instance=ExtResource("10_l6jej")]
 
 [node name="WaveTimer" type="Timer" parent="chara_ctrl"]
 one_shot = true

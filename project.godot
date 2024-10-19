@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DialogManager="*res://src/scripts/DialogManager.gd"
 Emote="*res://src/scripts/emote.gd"
+EmoteStore="*res://src/scripts/emote_store.gd"
 
 [display]
 
